@@ -1,0 +1,4 @@
+rust_input: "crate::api"
+rust_root: "./"
+dart_output: "dart_wrapper/lib/src/rust/"
+dart_format_line_length: 80

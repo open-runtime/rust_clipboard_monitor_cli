@@ -1,0 +1,13 @@
+[package]
+name = "chrome-ui-segment"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0"
+chrono = { version = "0.4", features = ["clock"] }
+image = { version = "0.25", default-features = false, features = ["png", "jpeg"] }
+rustautogui = "2.5.0"
+active-win-pos-rs = "0.9.1"
+
+

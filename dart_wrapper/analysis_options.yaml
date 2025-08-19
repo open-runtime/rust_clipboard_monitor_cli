@@ -1,0 +1,12 @@
+include: package:lints/recommended.yaml
+
+analyzer:
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+
+linter:
+  rules:
+    - avoid_print
+    - prefer_single_quotes
+    - always_declare_return_types

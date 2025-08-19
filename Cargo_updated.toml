@@ -1,0 +1,59 @@
+[package]
+name = "rust_clipboard_monitor_cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# Direct macOS Accessibility bindings
+accessibility-sys = "0.2.0"
+core-foundation = "0.10"
+core-foundation-sys = "0.8"
+core-graphics = "0.24"
+
+# REMOVED: cocoa = "0.26"
+# REMOVED: objc = "0.2"
+
+# NEW: objc2 ecosystem crates
+objc2 = "0.5"
+objc2-foundation = { version = "0.2", features = ["NSString", "NSArray", "NSThread", "NSData", "NSDictionary", "NSNotification"] }
+objc2-app-kit = { version = "0.2", features = ["NSApplication", "NSPasteboard", "NSWorkspace", "NSRunningApplication", "NSWindow"] }
+block2 = "0.5"  # For block support
+
+# CLI and serialization
+clap = { version = "4.5", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# URL decoding for file paths
+urlencoding = "2.1"
+
+# Base64 encoding for RTF and binary clipboard data
+base64 = "0.22"
+
+# Arboard - robust cross-platform clipboard library (fallback/verification)
+arboard = "3.4"
+
+[[bin]]
+name = "rust_clipboard_monitor_cli"
+path = "src/main.rs"
+
+[[bin]]
+name = "focus_tracker_enhanced"
+path = "src/main_enhanced.rs"
+
+[[bin]]
+name = "focus_tracker_complete"
+path = "src/main_complete.rs"
+
+[[bin]]
+name = "ultimate_monitor"
+path = "src/main_ultimate.rs"
+
+[[bin]]
+name = "test_safari"
+path = "src/test_safari.rs"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+opt-level = 3

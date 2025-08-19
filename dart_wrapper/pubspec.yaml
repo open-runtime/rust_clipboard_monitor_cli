@@ -1,0 +1,18 @@
+name: clipboard_monitor_dart
+description: Dart CLI wrapper for the Rust clipboard monitor functionality
+version: 0.1.0
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  args: ^2.4.2
+  ffi: ^2.1.0
+  
+  flutter_rust_bridge: 2.11.1
+dev_dependencies:
+  lints: ^3.0.0
+  test: ^1.21.0
+
+executables:
+  clipboard_monitor_dart: main

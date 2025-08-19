@@ -1,0 +1,6 @@
+/bin/chrome_ui_segment/target
+*.png
+/target
+/bin/cursor
+/bin/google-chrome
+/bin/safari
