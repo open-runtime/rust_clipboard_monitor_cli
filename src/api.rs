@@ -1054,29 +1054,40 @@ fn get_system_context() -> SystemContext {
 
 /// Get comprehensive clipboard data with all available formats and enhanced context
 fn get_comprehensive_clipboard_data() -> Result<DartClipboardData> {
+    get_comprehensive_clipboard_data_internal(false)
+}
+
+/// Internal implementation with silent option
+fn get_comprehensive_clipboard_data_internal(silent: bool) -> Result<DartClipboardData> {
     unsafe {
         use objc2_foundation::NSString;
         
         let pasteboard = NSPasteboard::generalPasteboard();
         let change_count = pasteboard.changeCount();
         
-        println!("🔍 CLIPBOARD ANALYSIS: changeCount = {}", change_count);
+        if !silent {
+            println!("🔍 CLIPBOARD ANALYSIS: changeCount = {}", change_count);
+        }
         
         let mut formats = Vec::new();
         let mut primary_content = String::new();
         
         // FIRST: Get actual available formats using NSPasteboard.types()
-        println!("📋 Getting actual available formats using NSPasteboard.types():");
+        if !silent {
+            println!("📋 Getting actual available formats using NSPasteboard.types():");
+        }
         let available_types = pasteboard.types();
         
         if let Some(types_array) = available_types.as_deref() {
-            println!("🎯 Found {} actual clipboard formats:", types_array.len());
-            for (i, type_obj) in types_array.iter().enumerate() {
-                let type_str = type_obj.to_string();
-                let emoji = get_format_emoji(&type_str);
-                println!("   {} [{}] {}", emoji, i + 1, type_str);
+            if !silent {
+                println!("🎯 Found {} actual clipboard formats:", types_array.len());
+                for (i, type_obj) in types_array.iter().enumerate() {
+                    let type_str = type_obj.to_string();
+                    let emoji = get_format_emoji(&type_str);
+                    println!("   {} [{}] {}", emoji, i + 1, type_str);
+                }
             }
-        } else {
+        } else if !silent {
             println!("❌ Unable to retrieve clipboard types");
         }
         
@@ -1092,7 +1103,9 @@ fn get_comprehensive_clipboard_data() -> Result<DartClipboardData> {
             ("public.url", "URL"),
         ];
         
-        println!("\n📋 Testing standard clipboard formats:");
+        if !silent {
+            println!("\n📋 Testing standard clipboard formats:");
+        }
         
         for (format_id, format_name) in &test_formats {
             let nsformat = NSString::from_str(format_id);
@@ -1101,8 +1114,10 @@ fn get_comprehensive_clipboard_data() -> Result<DartClipboardData> {
                 let data_size = data.len();
                 let mut content_preview = String::new();
                 
-                let emoji = get_format_emoji(format_id);
-                println!("  {} ✅ [{}] {} - {} bytes", emoji, format_name, format_id, data_size);
+                if !silent {
+                    let emoji = get_format_emoji(format_id);
+                    println!("  {} ✅ [{}] {} - {} bytes", emoji, format_name, format_id, data_size);
+                }
                 
                 // Try to get string data for text formats
                 if format_id.contains("text") || format_id.contains("html") || format_id.contains("rtf") {
@@ -1114,17 +1129,23 @@ fn get_comprehensive_clipboard_data() -> Result<DartClipboardData> {
                             primary_content = full_text;
                         }
                         
-                        println!("      📝 Content: \"{}\"", safe_truncate(&content_preview, 50));
+                        if !silent {
+                            println!("      📝 Content: \"{}\"", safe_truncate(&content_preview, 50));
+                        }
                     }
                 } else if format_id.contains("url") {
                     if let Some(string_data) = pasteboard.stringForType(&nsformat) {
                         content_preview = string_data.to_string();
-                        println!("      🔗 URL: {}", content_preview);
+                        if !silent {
+                            println!("      🔗 URL: {}", content_preview);
+                        }
                     }
                 } else {
                     // Binary data (images, files, etc.)
                     content_preview = format!("{} data ({} bytes)", format_name, data_size);
-                    println!("      📦 Binary data: {} bytes", data_size);
+                    if !silent {
+                        println!("      📦 Binary data: {} bytes", data_size);
+                    }
                 }
                 
                 formats.push(DartClipboardFormat {
@@ -1133,7 +1154,7 @@ fn get_comprehensive_clipboard_data() -> Result<DartClipboardData> {
                     content_preview,
                     is_available: true,
                 });
-            } else {
+            } else if !silent {
                 let emoji = get_format_emoji(format_id);
                 println!("  {} ❌ [{}] {} - No data", emoji, format_name, format_id);
             }
@@ -1206,9 +1227,11 @@ fn get_comprehensive_clipboard_data() -> Result<DartClipboardData> {
             system_context,
         };
         
-        println!("✅ Clipboard analysis complete: {} formats available, primary content: {} chars", 
-               clipboard_data.formats.len(),
-               clipboard_data.primary_content.len());
+        if !silent {
+            println!("✅ Clipboard analysis complete: {} formats available, primary content: {} chars", 
+                   clipboard_data.formats.len(),
+                   clipboard_data.primary_content.len());
+        }
         
         Ok(clipboard_data)
     }
@@ -1508,6 +1531,11 @@ pub fn test_comprehensive_clipboard_monitoring() -> Result<()> {
 /// Get current clipboard data (one-time query)
 pub fn get_current_clipboard_info() -> Option<DartClipboardData> {
     get_comprehensive_clipboard_data().ok()
+}
+
+/// Get current clipboard data silently (no debug output)
+pub fn get_current_clipboard_info_silent() -> Option<DartClipboardData> {
+    get_comprehensive_clipboard_data_internal(true).ok()
 }
 
 /// Simple one-time query for current app without streaming

@@ -388,8 +388,8 @@ Future<void> startSilentMonitoring() async {
         return;
       }
 
-      // Get current clipboard info
-      final clipboardData = await getCurrentClipboardInfo();
+      // Get current clipboard info silently (no debug output)
+      final clipboardData = await getCurrentClipboardInfoSilent();
       if (clipboardData != null) {
         final currentChangeCount = clipboardData.changeCount;
         
@@ -614,7 +614,7 @@ Future<void> startClipboardMonitoring() async {
         return;
       }
 
-      // Get current clipboard info
+      // Get current clipboard info (with debug output for regular monitoring)
       final clipboardData = await getCurrentClipboardInfo();
       if (clipboardData != null) {
         final currentChangeCount = clipboardData.changeCount;

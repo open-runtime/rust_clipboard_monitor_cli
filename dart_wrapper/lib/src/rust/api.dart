@@ -6,7 +6,7 @@
 import 'frb_generated.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
-// These functions are ignored because they are not marked as `pub`: `convert_to_dart_event`, `create_and_run_app_switcher_unsafe`, `create_and_run_app_switcher`, `ensure_nsapp_initialized`, `execute_on_main_thread`, `extract_accessibility_context_safe`, `extract_app_info_from_notification`, `get_browser_context`, `get_comprehensive_clipboard_data`, `get_current_frontmost_app`, `get_format_emoji`, `get_monitor_state`, `get_system_context`, `get_window_context_for_app`, `init_monitor_state`, `monitor_clipboard_changes`, `new`, `run_app_switcher_service`, `safe_truncate`, `setup_basic_app_detection`, `setup_hybrid_detection_system`, `setup_real_notification_system`, `setup_simple_workspace_monitor`, `setup_workspace_monitoring_on_background_thread`, `test_clipboard_monitoring`, `test_nsworkspace_access`
+// These functions are ignored because they are not marked as `pub`: `convert_to_dart_event`, `create_and_run_app_switcher_unsafe`, `create_and_run_app_switcher`, `ensure_nsapp_initialized`, `execute_on_main_thread`, `extract_accessibility_context_safe`, `extract_app_info_from_notification`, `get_browser_context`, `get_comprehensive_clipboard_data_internal`, `get_comprehensive_clipboard_data`, `get_current_frontmost_app`, `get_format_emoji`, `get_monitor_state`, `get_system_context`, `get_window_context_for_app`, `init_monitor_state`, `monitor_clipboard_changes`, `new`, `run_app_switcher_service`, `safe_truncate`, `setup_basic_app_detection`, `setup_hybrid_detection_system`, `setup_real_notification_system`, `setup_simple_workspace_monitor`, `setup_workspace_monitoring_on_background_thread`, `test_clipboard_monitoring`, `test_nsworkspace_access`
 // These types are ignored because they are neither used by any `pub` functions nor (for structs and enums) marked `#[frb(unignore)]`: `InternalStreamListener`, `MonitorState`
 // These function are ignored because they are on traits that is not defined in current crate (put an empty `#[frb]` on it to unignore): `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `clone`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`, `fmt`
 // These functions are ignored (category: IgnoreBecauseOwnerTyShouldIgnore): `on_app_switch`
@@ -37,6 +37,10 @@ Future<void> testComprehensiveClipboardMonitoring() =>
 /// Get current clipboard data (one-time query)
 Future<DartClipboardData?> getCurrentClipboardInfo() =>
     RustLib.instance.api.crateApiGetCurrentClipboardInfo();
+
+/// Get current clipboard data silently (no debug output)
+Future<DartClipboardData?> getCurrentClipboardInfoSilent() =>
+    RustLib.instance.api.crateApiGetCurrentClipboardInfoSilent();
 
 /// Simple one-time query for current app without streaming
 Future<DartAppInfo?> getCurrentAppInfo() =>
