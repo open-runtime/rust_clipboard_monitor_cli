@@ -1,0 +1,7 @@
+{"event_type":"start","app":{"app_name":"Cursor","bundle_id":"com.todesktop.230313mzl4w4u92","window_title":null}}
+{"event_type":"app_switch","from":{"app_name":"Cursor","bundle_id":"com.todesktop.230313mzl4w4u92","window_title":null},"to":{"app_name":"Safari","bundle_id":"com.apple.Safari","window_title":"Untitled"},"duration_ms":2134}
+{"event_type":"window_change","from":{"app_name":"Safari","bundle_id":"com.apple.Safari","window_title":"Untitled"},"to":{"app_name":"Safari","bundle_id":"com.apple.Safari","window_title":"Apple"},"duration_ms":434}
+{"event_type":"window_change","from":{"app_name":"Safari","bundle_id":"com.apple.Safari","window_title":"Apple"},"to":{"app_name":"Safari","bundle_id":"com.apple.Safari","window_title":"Untitled"},"duration_ms":1977}
+{"event_type":"window_change","from":{"app_name":"Safari","bundle_id":"com.apple.Safari","window_title":"Untitled"},"to":{"app_name":"Safari","bundle_id":"com.apple.Safari","window_title":"Apple Developer"},"duration_ms":2346}
+{"event_type":"window_change","from":{"app_name":"Safari","bundle_id":"com.apple.Safari","window_title":"Apple Developer"},"to":{"app_name":"Safari","bundle_id":"com.apple.Safari","window_title":"Untitled"},"duration_ms":4247}
+{"event_type":"window_change","from":{"app_name":"Safari","bundle_id":"com.apple.Safari","window_title":"Untitled"},"to":{"app_name":"Safari","bundle_id":"com.apple.Safari","window_title":"Swift Programming Language"},"duration_ms":4664}
